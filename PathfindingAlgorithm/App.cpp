@@ -16,7 +16,8 @@ App::~App()
 
 void App::MainLoop()
 {
-    
+    bool placeStart{ false };
+    bool placeEnd{ false };
 
     while (window->isOpen())
     {
@@ -32,7 +33,7 @@ void App::MainLoop()
                 window->close();
             }
         }
-        window->clear();
+        window->clear(sf::Color::Blue);
 
         grid.Draw(window);
 
@@ -40,15 +41,40 @@ void App::MainLoop()
         {
             ImGui::Begin("controls");
 
+            if (ImGui::Button("Start")) 
+            {
+                placeStart = true;
+            }
+            else if (ImGui::Button("End"))
+            {
+                placeEnd = true;
+            }
 
             ImGui::End();
         }
 
-        grid.Update(GetMousePos(), GridItemState::Black); //TODO nem csak ez a state van
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+        {
+            if (placeStart)
+            {
+                grid.DeleteStartPos();
+                placeStart = false;
+            }
+            else if (placeEnd)
+            {
+                grid.DeleteEndPos();
+                placeEnd = false;
+            }
+            
+            grid.Update(GetMousePos(), GridItemState::Black);
+            
+        }
+
+        
 
         ImGui::SFML::Render(*window);
+        
         window->display();
-        //Sleep(20);
     }
 }
 

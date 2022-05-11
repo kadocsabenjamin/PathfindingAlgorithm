@@ -1,9 +1,23 @@
 #include "GridItem.h"
 
-GridItem::GridItem(size_t x, size_t y) :
-	state(GridItemState::White)
+GridItem::GridItem(size_t x, size_t y)
 {
-	body.setFillColor(sf::Color::White);
+	if (x == START_POS_X_Y && y == START_POS_X_Y)
+	{
+		state = GridItemState::Red;
+		body.setFillColor(sf::Color::Red);
+	}
+	else if (x == END_POS_X_Y && y == END_POS_X_Y)
+	{
+		state = GridItemState::Green;
+		body.setFillColor(sf::Color::Green);
+	}
+	else
+	{
+		state = GridItemState::White;
+		body.setFillColor(sf::Color::White);
+	}
+	
 	body.setPosition({ ZERO_POS + ((GRID_ITEM_SIZE + 1) * (float)x), ZERO_POS + ((GRID_ITEM_SIZE + 1) * (float)y) });
 	body.setSize({ GRID_ITEM_SIZE, GRID_ITEM_SIZE });
 }
@@ -24,7 +38,6 @@ GridItemState GridItem::GetState()
 
 void GridItem::SetState(GridItemState newState)
 {
-	state = newState;
 	if (newState ==  GridItemState::White)
 	{
 		body.setFillColor(sf::Color::White);
@@ -37,4 +50,10 @@ void GridItem::SetState(GridItemState newState)
 	{
 		body.setFillColor(sf::Color::Red);
 	}
+	else if (newState == GridItemState::Green)
+	{
+		body.setFillColor(sf::Color::Green);
+	}
+	state = newState;
 }
+

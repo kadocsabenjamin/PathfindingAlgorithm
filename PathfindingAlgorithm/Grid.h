@@ -8,7 +8,6 @@
 #include <vector>
 #include <tuple>
 
-
 class Grid
 {
 public:
@@ -16,10 +15,14 @@ public:
 	~Grid();
 	void Draw(std::unique_ptr<sf::RenderWindow>& window) const;
 	void Update(sf::Vector2f mousePos, GridItemState newState);
+	void DeleteStartPos();
+	void DeleteEndPos();
 
 private:
-	bool CheckIllLegalCoordinates(int x, int y);
+	bool CheckIllLegalCoordinates(int x, int y) const;
 
 	std::vector<std::vector<std::unique_ptr<GridItem>>> grid;
+	std::tuple<int, int> startPos;
+	std::tuple<int, int> endPos;
 };
 
