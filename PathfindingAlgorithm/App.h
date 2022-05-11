@@ -6,8 +6,11 @@
 
 #include "Grid.h"
 
+#include <iostream>
 #include <memory>
 #include <string>
+#include <vector>
+#include <tuple>
 
 constexpr std::string_view APP_NAME = "PATHFINDER";
 constexpr size_t MAX_MEMORY = 640;
@@ -20,10 +23,10 @@ public:
 	void MainLoop();
 
 private:
+	sf::Vector2f GetMousePos();
+
 	std::unique_ptr<sf::RenderWindow> window;
 	Grid grid;
 	sf::Clock deltaClock;
-	sf::View view;
-
 };
 

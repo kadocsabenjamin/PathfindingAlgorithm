@@ -2,12 +2,12 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "GridItem.h"
+
 #include <memory>
 #include <vector>
+#include <tuple>
 
-constexpr size_t GRID_SIZE = 80;
-constexpr size_t GRID_ITEM_SIZE = 9;
-constexpr size_t ZERO_POS = 40;
 
 class Grid
 {
@@ -15,8 +15,11 @@ public:
 	Grid();
 	~Grid();
 	void Draw(std::unique_ptr<sf::RenderWindow>& window) const;
+	void Update(sf::Vector2f mousePos, GridItemState newState);
 
 private:
-	std::vector<std::vector<std::unique_ptr<sf::RectangleShape>>> grid;
+	bool CheckIllLegalCoordinates(int x, int y);
+
+	std::vector<std::vector<std::unique_ptr<GridItem>>> grid;
 };
 
