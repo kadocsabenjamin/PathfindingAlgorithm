@@ -15,8 +15,11 @@ public:
 	~Grid();
 	void Draw(std::unique_ptr<sf::RenderWindow>& window) const;
 	void Update(sf::Vector2f mousePos, GridItemState newState);
+
 	void DeleteStartPos();
 	void DeleteEndPos();
+
+	void Dijkstra();
 
 private:
 	bool CheckIllLegalCoordinates(int x, int y) const;
