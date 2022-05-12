@@ -111,7 +111,11 @@ void App::Dijkstra()
     {
         std::tuple<int, int> u = grid.GetItemPosWithSmallestDistance();
 
-
+        if (std::get<0>(u) == -1)
+        {
+            return;
+        }
+        
 
         auto currentMinimum = grid.GetSingleItem(std::get<0>(u), std::get<1>(u));
         currentMinimum->SetVisited(true);
@@ -134,6 +138,10 @@ void App::Dijkstra()
                     }
                     else
                     {
+                        if (currentMinimum->prevPos.first == -1)
+                        {
+                            return;
+                        }
                         currentMinimum = grid.GetSingleItem(currentMinimum->prevPos.first, currentMinimum->prevPos.second);
                     }
                 }
@@ -152,4 +160,5 @@ void App::Dijkstra()
             }
         }
     }
+    int z = 7;
 }

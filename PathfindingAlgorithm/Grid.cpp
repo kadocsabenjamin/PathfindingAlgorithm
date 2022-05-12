@@ -29,6 +29,18 @@ Grid::Grid() :
 
 			if (y < GRID_SIZE - 1)
 				grid[x][y]->neighbors.push_back({ x, y + 1 });
+
+			if (x > 0 && y > 0)
+				grid[x][y]->neighbors.push_back({ x - 1, y - 1});
+			
+			if (x > 0 && y < GRID_SIZE - 1)
+				grid[x][y]->neighbors.push_back({ x - 1, y + 1});
+			
+			if (y > 0 && x < GRID_SIZE - 1)
+				grid[x][y]->neighbors.push_back({ x + 1, y - 1});
+
+			if (x < GRID_SIZE - 1 && y < GRID_SIZE - 1)
+				grid[x][y]->neighbors.push_back({ x + 1, y + 1});
 		}
 	}
 }
@@ -132,7 +144,7 @@ bool Grid::CheckForNotVisited()
 std::tuple<int, int> Grid::GetItemPosWithSmallestDistance()
 {
 	int smallest = INT_MAX;
-	std::tuple<int, int> idx;
+	std::tuple<int, int> idx = { -1, -1 };
 	for (size_t x = 0; x < GRID_SIZE; x++)
 	{
 		for (size_t y = 0; y < GRID_SIZE; y++)
@@ -140,7 +152,7 @@ std::tuple<int, int> Grid::GetItemPosWithSmallestDistance()
 			if (!grid[x][y]->GetVisited())
 			{
 				int temp_d = grid[x][y]->GetDistance();
-				if (temp_d <= smallest)
+				if (temp_d < smallest)
 				{
 					smallest = temp_d;
 					idx = { x, y };
