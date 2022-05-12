@@ -119,18 +119,19 @@ bool Grid::CheckForNotVisited()
 	{
 		for (size_t y = 0; y < GRID_SIZE; y++)
 		{
-			if (grid[x][y]->GetVisited())
+			if (!grid[x][y]->GetVisited())
 			{
 				return true;
 			}
 		}
 	}
+
 	return false;
 }
 
-std::tuple<int, int> Grid::GetItemWithSmallestDistance()
+std::tuple<int, int> Grid::GetItemPosWithSmallestDistance()
 {
-	int smallest = 100000;
+	int smallest = INT_MAX;
 	std::tuple<int, int> idx;
 	for (size_t x = 0; x < GRID_SIZE; x++)
 	{
@@ -139,7 +140,7 @@ std::tuple<int, int> Grid::GetItemWithSmallestDistance()
 			if (!grid[x][y]->GetVisited())
 			{
 				int temp_d = grid[x][y]->GetDistance();
-				if (temp_d < smallest)
+				if (temp_d <= smallest)
 				{
 					smallest = temp_d;
 					idx = { x, y };
@@ -147,6 +148,7 @@ std::tuple<int, int> Grid::GetItemWithSmallestDistance()
 			}
 		}
 	}
+
 	return idx;
 }
 
@@ -157,9 +159,21 @@ void Grid::Reset()
 		for (size_t y = 0; y < GRID_SIZE; y++)
 		{
 			grid[x][y]->ResetDistance();
-			grid[x][y]->prev_x = -1;
-			grid[x][y]->prev_y = -1;
+			grid[x][y]->prevPos.first = -1;
+			grid[x][y]->prevPos.second = -1;
 			grid[x][y]->SetVisited(false);
+		}
+	}
+}
+
+void Grid::ResetToDefault()
+{
+	for (size_t x = 0; x < GRID_SIZE; x++)
+	{
+		for (size_t y = 0; y < GRID_SIZE; y++)
+		{
+			grid[x][y]->SetVisited(false);
+			grid[x][y]->SetState(GridItemState::White);
 		}
 	}
 }

@@ -24,9 +24,10 @@ public:
 	std::shared_ptr<GridItem>& GetSingleItem(int x, int y);
 
 	bool CheckForNotVisited();
-	std::tuple<int, int> GetItemWithSmallestDistance();
+	std::tuple<int, int> GetItemPosWithSmallestDistance();
 
 	void Reset();
+	void ResetToDefault();
 
 private:
 	bool CheckIllLegalCoordinates(int x, int y) const;

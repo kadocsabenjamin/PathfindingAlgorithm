@@ -23,8 +23,8 @@ GridItem::GridItem(size_t x, size_t y) :
 	body.setPosition({ ZERO_POS + ((GRID_ITEM_SIZE + 1) * (float)x), ZERO_POS + ((GRID_ITEM_SIZE + 1) * (float)y) });
 	body.setSize({ GRID_ITEM_SIZE, GRID_ITEM_SIZE });
 
-	
-
+	prevPos.first = -1;
+	prevPos.second = -1;
 }
 
 GridItem::~GridItem()
@@ -59,6 +59,10 @@ void GridItem::SetState(GridItemState newState)
 	{
 		body.setFillColor(sf::Color::Green);
 	}
+	else if (newState == GridItemState::Magenta)
+	{
+		body.setFillColor(sf::Color::Magenta);
+	}
 	state = newState;
 }
 
@@ -81,6 +85,10 @@ void GridItem::ResetDistance()
 	else if (state == GridItemState::Black)
 	{
 		distance = INT_MAX;
+	}
+	else if (state == GridItemState::Green)
+	{
+		distance = 3000;
 	}
 	else
 	{

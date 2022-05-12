@@ -4,7 +4,6 @@
 #include "imgui-sfml.h"
 #include <SFML/Graphics.hpp>
 
-#include "Dijkstra.h"
 #include "Grid.h"
 
 #include <iostream>
@@ -25,6 +24,11 @@ public:
 
 private:
 	sf::Vector2f GetMousePos();
+	void ResetToDefault();
+
+
+	void Dijkstra();
+	bool reset;
 
 	std::unique_ptr<sf::RenderWindow> window;
 	Grid grid;

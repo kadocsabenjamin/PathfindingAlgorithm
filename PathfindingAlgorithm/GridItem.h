@@ -15,6 +15,7 @@ enum class GridItemState
 	White,
 	Red,
 	Green,
+	Magenta,
 	Black
 };
 
@@ -36,9 +37,7 @@ public:
 	void ResetDistance();
 
 	std::vector<std::pair<int,int>> neighbors;
-
-	int prev_x;
-	int prev_y;
+	std::pair<int, int> prevPos;
 
 
 private:
