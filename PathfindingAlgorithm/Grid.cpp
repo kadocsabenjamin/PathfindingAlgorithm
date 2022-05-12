@@ -6,13 +6,30 @@ Grid::Grid() :
 {
 	for (size_t x = 0; x < GRID_SIZE; x++)
 	{
-		std::vector<std::unique_ptr<GridItem>> temp_row{};
+		std::vector<std::shared_ptr<GridItem>> temp_row{};
 		for (size_t y = 0; y < GRID_SIZE; y++)
 		{
-			std::unique_ptr temp_item = std::make_unique<GridItem>(x, y);
+			std::shared_ptr temp_item = std::make_shared<GridItem>(x, y);
 			temp_row.push_back(std::move(temp_item));
 		}
 		grid.push_back(std::move(temp_row));
+	}
+	for (size_t x = 0; x < GRID_SIZE; x++)
+	{
+		for (size_t y = 0; y < GRID_SIZE; y++)
+		{
+			if (x > 0)
+				grid[x][y]->neighbors.push_back({ x - 1, y });
+			
+			if (x < GRID_SIZE - 1)
+				grid[x][y]->neighbors.push_back({ x + 1, y});
+
+			if (y > 0)
+				grid[x][y]->neighbors.push_back({ x, y - 1});
+
+			if (y < GRID_SIZE - 1)
+				grid[x][y]->neighbors.push_back({ x, y + 1 });
+		}
 	}
 }
 
@@ -40,7 +57,6 @@ void Grid::Update(sf::Vector2f mousePos, GridItemState newState)
 		return;
 
 	if (x == std::get<0>(startPos) && y == std::get<1>(startPos))
-	
 		return;
 	
 	if (x == std::get<0>(endPos) && y == std::get<1>(endPos))
@@ -67,23 +83,96 @@ void Grid::Update(sf::Vector2f mousePos, GridItemState newState)
 
 void Grid::DeleteStartPos()
 {
-	grid[std::get<0>(startPos)][std::get<1>(startPos)]->SetState(GridItemState::White);
+	if (std::get<0>(startPos) != -1 && std::get<1>(startPos) != -1)
+		grid[std::get<0>(startPos)][std::get<1>(startPos)]->SetState(GridItemState::White);
+	
 	startPos = { -1, -1 };
 }
 
 void Grid::DeleteEndPos()
 {
-	grid[std::get<0>(endPos)][std::get<1>(endPos)]->SetState(GridItemState::White);
+	if (std::get<0>(endPos) != -1 && std::get<1>(endPos) != -1)
+	{
+		grid[std::get<0>(endPos)][std::get<1>(endPos)]->SetState(GridItemState::White);
+	} 
 	endPos = { -1, -1 };
+}
+
+std::tuple<int, int> Grid::GetStartPos()
+{
+	return startPos;
+}
+
+std::tuple<int, int> Grid::GetEndPos()
+{
+	return endPos;
+}
+
+std::shared_ptr<GridItem>& Grid::GetSingleItem(int x, int y)
+{
+	return grid[x][y];
+}
+
+bool Grid::CheckForNotVisited()
+{
+	for (size_t x = 0; x < GRID_SIZE; x++)
+	{
+		for (size_t y = 0; y < GRID_SIZE; y++)
+		{
+			if (grid[x][y]->GetVisited())
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+std::tuple<int, int> Grid::GetItemWithSmallestDistance()
+{
+	int smallest = 100000;
+	std::tuple<int, int> idx;
+	for (size_t x = 0; x < GRID_SIZE; x++)
+	{
+		for (size_t y = 0; y < GRID_SIZE; y++)
+		{
+			if (!grid[x][y]->GetVisited())
+			{
+				int temp_d = grid[x][y]->GetDistance();
+				if (temp_d < smallest)
+				{
+					smallest = temp_d;
+					idx = { x, y };
+				}
+			}
+		}
+	}
+	return idx;
+}
+
+void Grid::Reset()
+{
+	for (size_t x = 0; x < GRID_SIZE; x++)
+	{
+		for (size_t y = 0; y < GRID_SIZE; y++)
+		{
+			grid[x][y]->ResetDistance();
+			grid[x][y]->prev_x = -1;
+			grid[x][y]->prev_y = -1;
+			grid[x][y]->SetVisited(false);
+		}
+	}
 }
 
 bool Grid::CheckIllLegalCoordinates(int x, int y) const
 {
-	if (x < 0 || y < 0)
+	if (x < 0
+		|| y < 0
+		|| x >= GRID_SIZE
+		|| y >= GRID_SIZE)
+	{
 		return true;
-
-	if (x >= GRID_SIZE || y >= GRID_SIZE)
-		return true;
-
+	}
+	
 	return false;
 }

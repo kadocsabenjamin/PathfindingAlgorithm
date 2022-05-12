@@ -1,11 +1,17 @@
 #pragma once
+
+#include "Grid.h"
+
 class Dijkstra
 {
 public:
-	Dijkstra();
+	Dijkstra(Grid& grid);
 	~Dijkstra();
 
-private:
+	void Reset();
+	void Update();
 
+private:
+	Grid& grid;
 };
 

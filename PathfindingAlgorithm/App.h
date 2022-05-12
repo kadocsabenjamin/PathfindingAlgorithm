@@ -4,6 +4,7 @@
 #include "imgui-sfml.h"
 #include <SFML/Graphics.hpp>
 
+#include "Dijkstra.h"
 #include "Grid.h"
 
 #include <iostream>

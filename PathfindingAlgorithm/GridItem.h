@@ -27,12 +27,24 @@ public:
 
 	GridItemState GetState();
 	void SetState(GridItemState newState);
+	bool GetVisited();
+	void SetVisited(bool v);
+	int GetDistance();
+	void SetDistance(int d);
 
 	void Clicked();
+	void ResetDistance();
+
+	std::vector<std::pair<int,int>> neighbors;
+
+	int prev_x;
+	int prev_y;
 
 
 private:
 	sf::RectangleShape body;
 	GridItemState state;
+	size_t distance;
+	bool visited;
 };
 

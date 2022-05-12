@@ -19,6 +19,9 @@ void App::MainLoop()
     bool placeStart{ false };
     bool placeEnd{ false };
 
+    Dijkstra d(grid);
+    d.Reset();
+
     while (window->isOpen())
     {
         ImGui::SFML::Update(*window, deltaClock.restart());
@@ -69,8 +72,7 @@ void App::MainLoop()
             grid.Update(GetMousePos(), GridItemState::Black);
             
         }
-
-        
+        //d.Update();
 
         ImGui::SFML::Render(*window);
         

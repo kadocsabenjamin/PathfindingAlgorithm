@@ -18,13 +18,20 @@ public:
 
 	void DeleteStartPos();
 	void DeleteEndPos();
+	std::tuple<int, int> GetStartPos();
+	std::tuple<int, int> GetEndPos();
 
-	void Dijkstra();
+	std::shared_ptr<GridItem>& GetSingleItem(int x, int y);
+
+	bool CheckForNotVisited();
+	std::tuple<int, int> GetItemWithSmallestDistance();
+
+	void Reset();
 
 private:
 	bool CheckIllLegalCoordinates(int x, int y) const;
+	std::vector<std::vector<std::shared_ptr<GridItem>>> grid;
 
-	std::vector<std::vector<std::unique_ptr<GridItem>>> grid;
 	std::tuple<int, int> startPos;
 	std::tuple<int, int> endPos;
 };

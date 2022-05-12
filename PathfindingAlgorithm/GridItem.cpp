@@ -1,6 +1,8 @@
 #include "GridItem.h"
 
-GridItem::GridItem(size_t x, size_t y)
+GridItem::GridItem(size_t x, size_t y) :
+	distance(10000),
+	visited(false)
 {
 	if (x == START_POS_X_Y && y == START_POS_X_Y)
 	{
@@ -20,6 +22,9 @@ GridItem::GridItem(size_t x, size_t y)
 	
 	body.setPosition({ ZERO_POS + ((GRID_ITEM_SIZE + 1) * (float)x), ZERO_POS + ((GRID_ITEM_SIZE + 1) * (float)y) });
 	body.setSize({ GRID_ITEM_SIZE, GRID_ITEM_SIZE });
+
+	
+
 }
 
 GridItem::~GridItem()
@@ -55,5 +60,41 @@ void GridItem::SetState(GridItemState newState)
 		body.setFillColor(sf::Color::Green);
 	}
 	state = newState;
+}
+
+bool GridItem::GetVisited()
+{
+	return visited;
+}
+
+void GridItem::SetVisited(bool v)
+{
+	visited = v;
+}
+
+void GridItem::ResetDistance()
+{
+	if (state == GridItemState::White)
+	{
+		distance = 1000;
+	}
+	else if (state == GridItemState::Black)
+	{
+		distance = INT_MAX;
+	}
+	else
+	{
+		distance = 0;
+	}
+}
+
+int GridItem::GetDistance()
+{
+	return distance;
+}
+
+void GridItem::SetDistance(int d)
+{
+	distance = d;
 }
 
