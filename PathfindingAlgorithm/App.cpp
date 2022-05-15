@@ -173,15 +173,4 @@ void App::Dijkstra()
             }
         }
     }
-
-    for (size_t x = 0; x < 10; x++)
-    {
-        for (size_t y = 0; y < 10; y++)
-        {
-            auto k = grid.GetSingleItem(x, y);
-            std::cout << k->GetDistance();
-            std::cout << " ";
-        }
-        std::cout << std::endl;
-    }
 }
