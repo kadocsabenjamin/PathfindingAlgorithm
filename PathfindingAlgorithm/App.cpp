@@ -153,11 +153,6 @@ void App::Dijkstra()
             
 
             int dist = currentMinimum->GetDistance();
-
-            if (neighbor->GetDistance() == 14)
-            {
-                int is = 2;
-            }
             if (dist + 10 < neighbor->GetDistance() && neighbor->GetDistance() != INT_MAX)
             {
                 if (neighborPos.first == std::get<0>(u) || neighborPos.second == std::get<1>(u))
