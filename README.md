@@ -1,5 +1,5 @@
 # PathfindingAlgorithm
-![2022-05-12 19_47_30-Window](https://user-images.githubusercontent.com/63474335/168137247-a4023452-22c1-4a6d-a348-b583f4f4d0ab.png)
 
-# small bug to be fixed:
-![2022-05-12 19_48_34-Window](https://user-images.githubusercontent.com/63474335/168137354-fd77cc52-9430-419c-93a9-0020a5581c37.png)
+![2022-05-15 22_28_27-PATHFINDER](https://user-images.githubusercontent.com/63474335/168492647-96ded2f4-3905-473f-babd-b385001fc0bb.png)
+![2022-05-15 22_29_00-PATHFINDER](https://user-images.githubusercontent.com/63474335/168492648-e8128c8c-e41b-41dc-9715-48fc436cc4d9.png)
+
