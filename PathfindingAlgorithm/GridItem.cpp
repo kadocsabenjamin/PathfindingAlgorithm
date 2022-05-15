@@ -36,7 +36,7 @@ void GridItem::Draw(std::unique_ptr<sf::RenderWindow>& window) const
 	window->draw(body);
 }
 
-GridItemState GridItem::GetState()
+GridItemState GridItem::GetState() const
 {
 	return state;
 }
@@ -66,7 +66,7 @@ void GridItem::SetState(GridItemState newState)
 	state = newState;
 }
 
-bool GridItem::GetVisited()
+bool GridItem::GetVisited() const
 {
 	return visited;
 }
@@ -96,7 +96,7 @@ void GridItem::ResetDistance()
 	}
 }
 
-int GridItem::GetDistance()
+int GridItem::GetDistance() const
 {
 	return distance;
 }

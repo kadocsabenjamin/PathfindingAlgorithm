@@ -26,11 +26,11 @@ public:
 	~GridItem();
 	void Draw(std::unique_ptr<sf::RenderWindow>& window) const;
 
-	GridItemState GetState();
+	GridItemState GetState() const;
 	void SetState(GridItemState newState);
-	bool GetVisited();
+	bool GetVisited() const;
 	void SetVisited(bool v);
-	int GetDistance();
+	int GetDistance() const;
 	void SetDistance(int d);
 
 	void Clicked();
