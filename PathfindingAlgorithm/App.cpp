@@ -150,15 +150,38 @@ void App::Dijkstra()
             }
 
             auto neighbor = grid.GetSingleItem(neighborPos.first, neighborPos.second);
+            
 
             int dist = currentMinimum->GetDistance();
-            if (dist < neighbor->GetDistance() && neighbor->GetDistance() != INT_MAX)
+
+            if (neighbor->GetDistance() == 14)
             {
-                neighbor->SetDistance(dist + 1);
+                int is = 2;
+            }
+            if (dist + 10 < neighbor->GetDistance() && neighbor->GetDistance() != INT_MAX)
+            {
+                if (neighborPos.first == std::get<0>(u) || neighborPos.second == std::get<1>(u))
+                {
+                    neighbor->SetDistance(dist + 10);
+                }
+                else
+                {
+                    neighbor->SetDistance(dist + 14);
+                }
                 neighbor->prevPos.first = std::get<0>(u);
                 neighbor->prevPos.second = std::get<1>(u);
             }
         }
     }
-    int z = 7;
+
+    for (size_t x = 0; x < 10; x++)
+    {
+        for (size_t y = 0; y < 10; y++)
+        {
+            auto k = grid.GetSingleItem(x, y);
+            std::cout << k->GetDistance();
+            std::cout << " ";
+        }
+        std::cout << std::endl;
+    }
 }

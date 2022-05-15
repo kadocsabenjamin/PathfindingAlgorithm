@@ -80,7 +80,7 @@ void GridItem::ResetDistance()
 {
 	if (state == GridItemState::White)
 	{
-		distance = 1000;
+		distance = 10000;
 	}
 	else if (state == GridItemState::Black)
 	{
